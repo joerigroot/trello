@@ -1,20 +1,27 @@
 body{
-  background-color: #f5f5f5;
+  background-color: #fff;
 }
 
 .header {
   padding: 30px;
-  background-color: #ccc;
+  background-color: #fff;
   margin-bottom: 30px;
+  box-shadow: 2px 2px 10px #ccc;
 }
 
 .header h1 {
   text-align: left;
 }
 
+.logo{
+  width: 230px;
+}
+
 h1,h2,h3,h4,p,input,textarea{
   margin: 0;
   padding: 0;
+  font-family: 'Roboto', Arial, sans-serif;
+  line-height: 1.4;
 }
 
 h2{
@@ -48,37 +55,71 @@ p{
 .lanes{
   display: flex;
   height: calc(100vh - 145px);
+  overflow: auto;
 }
 
 .lane{
   width: calc(25% - 30px);
   min-height: 500px;
-  background-color: #ddd;
+  min-width: 300px;
+  max-width: 400px;
+  background-color: #eee;
   margin: 15px;
+  border-radius: 5px;
 }
 
 .ticketFooter{
-  border-top: 1px solid #ccc;
-  padding: 10px 10px 0 10px;
-  margin-left: -15px;
-  margin-right: -15px;
-  margin-top: 18px;
+  margin-top: 20px;
+}
+
+.category{
+  background-color: #3498db;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 6px;
+  border-radius: 5px;
+  margin-left: 10px;
 }
 
 .deleteButton{
-  background-color: rgb(190, 0, 38);
-  color: #fff;
+  color: #e74c3c;
   border: none;
   padding: 6px 10px;
   border-radius: 3px;
 }
 .editButton{
   margin-right: 8px;
-  background-color: #95eaff;
-  color: #fff;
+  color: #252525;
   border: none;
   padding: 6px 10px;
   border-radius: 3px;
+}
+
+.deleteButton:hover{
+  cursor: pointer;
+}
+
+.editButton:hover{
+  cursor: pointer;
+}
+
+.button.disabled{
+  background-color: #ccc !important;
+  cursor: not-allowed !important;
+}
+
+.categories{
+  margin-left: 15px;
+  margin-bottom: 10px;
+}
+
+.category-filter {
+  background-color: #eee;
+  padding: 10px 12px;
+  border-radius: 5px;
+  font-weight: 700;
+  margin-right: 10px;
 }
 
 .ticket{
@@ -86,6 +127,12 @@ p{
   margin: 0px 15px 15px 15px;
   padding: 15px 15px 10px 15px;
   border-radius: 3px;
+  box-shadow: 2px 2px 5px #ccc;
+}
+
+.profile-image{
+  width: 30px;
+  border-radius: 50%;
 }
 
 .addDialog {
@@ -125,6 +172,7 @@ p{
 
 .dialogOpen{
   opacity: 1 !important;
+  pointer-events: auto;
 }
 
 /* .editDialog:target {
@@ -162,7 +210,7 @@ form label{
   display: block;
 }
 
-form input {
+form input, form textarea {
   padding: 12px;
   width: 100%;
   box-sizing: border-box;
@@ -196,8 +244,12 @@ select {
   width: 100px;
 }
 
-.close:hover {
-  background: #00d9ff;
+a.close {
+  color: #555;
+}
+
+a.close:hover {
+  cursor: pointer;
 }
 
 svg{
@@ -210,7 +262,7 @@ svg{
 }
 
 .button{
-  background-color: #00d9ff;
+  background-color: #D6004A;
   padding: 12px 15px;
   margin-left: 15px;
   border-radius: 4px;
@@ -219,9 +271,54 @@ svg{
   font-size: 16px;
   line-height: 1;
   border: none;
+  transition: 0.3s ease;
+}
+
+.button:hover{
+  cursor: pointer;
+  background-color: #C00042;
+  box-shadow: 2px 2px 4px rgb(0 0 0 / 35%);
+}
+
+.button-grey{
+  background-color: #252525;
+}
+
+.button-grey:hover{
+  background-color: #252525;
 }
 
 .button-cancel{
-  background-color: #ccc;
+  background-color: #ddd;
   color: #555;
+  transition: 0.3s ease;
+}
+
+.button-cancel:hover {
+  background-color: #ddd;
+}
+
+.error{
+  display: none;
+}
+
+.snackbar{
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  background-color: #4caf50;
+  color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 10px #999;
+}
+
+.snackbar
+
+.snackbar span{
+  margin-left: 10px;
+}
+
+.hidden{
+  display: none;
 }

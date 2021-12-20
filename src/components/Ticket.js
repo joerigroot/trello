@@ -2,25 +2,26 @@ import React, { useState, useRef } from 'react'
 import { setLocalStorage } from '../utils/storage'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons'
+import Joeri from "../joeri.jpg"
 
 const Ticket = (props) => {
 
-  const { dataTickets, setDataTickets, setShow, setFormState, dialog, setDialog } = props
+  const { dataTickets, setDataTickets, setShow, setFormState, dialog, setDialog, dialogType, setDialogType, dialogTicketId, setDialogTicketId } = props
 
   function handleClickEdit(event) {
     const id = event.target.value
-    const title = event.target.closest('.ticket').querySelector('h3').innerHTML
-    const description = event.target.closest('.ticket').querySelector('p').innerHTML
-    const lane = event.target.closest('.lane').querySelector('h2').innerHTML
+    let selectedTicket = dataTickets.find(ticket => ticket.id === +id)
 
+    setDialogTicketId(id)
     setDialog(true)
+    setDialogType('editTicket')
     setFormState({
-      title: title,
-      description: description,
-      lane: lane,
-      id: id,
+      title: { value: selectedTicket.title },
+      subtitle: { value: selectedTicket.subtitle },
+      description: selectedTicket.description,
+      lane: selectedTicket.lane,
+      id: selectedTicket.id,
     })
-
   }
 
   function handleClickDelete(event) {
@@ -69,13 +70,20 @@ const Ticket = (props) => {
       onDragStart={(event) => handleDragStart(event, { ticketLane, ticketId })}
       id={ticketId}
     >
-      <h3>{props.ticket.name}</h3>
+      <h3>{props.ticket.title}</h3>
+      <h3>{props.ticket.subtitle}</h3>
       <p>{props.ticket.description}</p>
-      <div className="flex flex-end ticketFooter">
-        <button className="editButton" onClick={handleClickEdit} value={props.ticket.id}><FontAwesomeIcon icon={faPen} /></button>
-        <button className="deleteButton" onClick={handleClickDelete} value={props.ticket.id}><FontAwesomeIcon icon={faTrash} /></button>
+      <div className="flex space-between align-items-center ticketFooter">
+        <div className="flex align-items-center">
+          <img className="profile-image" src={Joeri} alt="Joeri" />
+          <span className="category">Huishuidelijk</span>
+        </div>
+        <div>
+          <button className="editButton" onClick={handleClickEdit} value={props.ticket.id}><FontAwesomeIcon icon={faPen} /></button>
+          <button className="deleteButton" onClick={handleClickDelete} value={props.ticket.id}><FontAwesomeIcon icon={faTrash} /></button>
+        </div>
       </div>
-    </div>
+    </div >
   );
 }
 
