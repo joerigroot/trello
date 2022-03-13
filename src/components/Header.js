@@ -1,30 +1,39 @@
-import React from "react"
-import ThingsLogo from "../things-logo.svg"
-//import AddList from "./AddList"
+import React, { useContext } from "react";
+import ThingsLogo from "../assets/things-logo.svg";
+import { LaneDialogContext, DispatchContext } from "../App";
 
 const Header = (props) => {
-  const { setDialog, setDialogType, setSubmitted, setLaneDialog } = props
-  const openDialog = (param) => {
-    if (param === 'addTicket') {
-      setDialog(true)
-      setDialogType('addTicket')
-      setSubmitted(false)
-    } else if (param === 'addLane') {
-      setLaneDialog(true)
-    }
-  }
+	const { setSubmitted } = props;
+	const showLaneDialog = useContext(LaneDialogContext);
+	const dispatch = useContext(DispatchContext);
 
-  return (
-    <div className="header" id="header">
-      <header className="flex align-items-center space-between">
-        <img className="logo" src={ThingsLogo} alt="Logo" />
-        <div>
-          <a onClick={() => openDialog('addTicket')} className="button">Add Ticket</a>
-          <a onClick={() => openDialog('addLane')} className="button button-grey">Add Lane</a>
-        </div>
-      </header>
-    </div>
-  );
-}
+	const openDialog = (param) => {
+		if (param === "addTicket") {
+			dispatch({ type: "OPEN_ADD_TICKET_DIALOG" });
+			setSubmitted(false);
+		} else if (param === "addLane") {
+			showLaneDialog(true);
+		}
+	};
 
-export default Header
+	return (
+		<div className="header" id="header">
+			<header className="flex align-items-center space-between">
+				<img className="logo" src={ThingsLogo} alt="Logo" />
+				<div>
+					<button onClick={() => openDialog("addTicket")} className="button">
+						Add Ticket
+					</button>
+					<button
+						onClick={() => openDialog("addLane")}
+						className="button button-grey"
+					>
+						Add Lane
+					</button>
+				</div>
+			</header>
+		</div>
+	);
+};
+
+export default Header;

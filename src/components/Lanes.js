@@ -1,19 +1,45 @@
-import React from "react"
-import Lane from "./Lane"
-//import { setLocalStorage, getLocalStorage } from '../utils/storage'
+import React from "react";
+import Lane from "./Lane";
+import { useQuery } from "@apollo/client";
+import { DATA_LANES } from "../queries/queries.js";
 
 const Lanes = (props) => {
-  const { dataTickets, setDataTickets, dataLanes, formState, setFormState, dialog, setDialog, dialogType, setDialogType, dialogTicketId, setDialogTicketId } = props
+	const {
+		formState,
+		setFormState,
+		dialogType,
+		setDialogType,
+		dialogTicketId,
+		setDialogTicketId,
+	} = props;
 
-  const lanes = dataLanes.sort((laneA, laneB) => laneA.position > laneB.position ? 1 : -1).map((lane) =>
-    <Lane dialogTicketId={dialogTicketId} setDialogTicketId={setDialogTicketId} dialogType={dialogType} setDialogType={setDialogType} dialog={dialog} setDialog={setDialog} key={lane.id} name={lane.name} dataTickets={dataTickets} setDataTickets={setDataTickets} formState={formState} setFormState={setFormState} />
-  );
+	const { loading, error, data } = useQuery(DATA_LANES);
 
-  return (
-    <div className="lanes" id="lanes">
-      {lanes}
-    </div>
-  );
-}
+	if (loading) return <div className="loader">Refetching...</div>;
+	if (error) return <p>Error :(</p>;
 
-export default Lanes
+	const dataFromGql = [...data.oneBoard.lanes];
+
+	const lanes = dataFromGql
+		.sort((laneA, laneB) => (laneA.position > laneB.position ? 1 : -1))
+		.map((lane) => (
+			<Lane
+				dialogTicketId={dialogTicketId}
+				setDialogTicketId={setDialogTicketId}
+				dialogType={dialogType}
+				setDialogType={setDialogType}
+				key={lane.id}
+				formState={formState}
+				setFormState={setFormState}
+				id={lane.id}
+			/>
+		));
+
+	return (
+		<div className="lanes" id="lanes">
+			{lanes}
+		</div>
+	);
+};
+
+export default Lanes;
