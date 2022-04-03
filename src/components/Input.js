@@ -12,6 +12,7 @@ const Input = (props) => {
 		isRequired,
 		submitted,
 		dialogTicketId,
+		label,
 	} = props;
 
 	const [inputError, setInputError] = useState(null);
@@ -61,6 +62,12 @@ const Input = (props) => {
 
 	return (
 		<div>
+			<div>
+				<label htmlFor="title">
+					{label}
+					{isRequired && "*"}
+				</label>
+			</div>
 			<input
 				id={name}
 				type="text"

@@ -140,15 +140,13 @@ const Dialog = (props) => {
 						}}
 					>
 						<div className="formField">
-							<div>
-								<label htmlFor="title">Title</label>
-							</div>
 							<Input
 								dialogTicketId={dialogTicketId}
 								submitted={submitted}
 								id="title"
 								type="text"
 								name="title"
+								label="Title"
 								isRequired={true}
 								minLength="4"
 								formState={formState}
@@ -156,9 +154,6 @@ const Dialog = (props) => {
 							/>
 						</div>
 						<div className="formField">
-							<div>
-								<label htmlFor="title">Subtitle</label>
-							</div>
 							<Input
 								dialogTicketId={dialogTicketId}
 								submitted={submitted}
@@ -169,6 +164,7 @@ const Dialog = (props) => {
 								minLength="4"
 								formState={formState}
 								setFormState={setFormState}
+								label="Subtitle"
 							/>
 						</div>
 						<div>

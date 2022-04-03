@@ -2,11 +2,7 @@ import React, { useState, useRef, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
 import Joeri from "../assets/joeri.jpg";
-import {
-	SELECTED_TICKET,
-	DELETE_TICKET_MUTATION,
-	DATA_LANES,
-} from "../queries/queries";
+import { SELECTED_TICKET } from "../queries/queries";
 import { useQuery } from "@apollo/client";
 import { DispatchContext } from "../App";
 
@@ -81,7 +77,7 @@ const Ticket = (props) => {
 			id={ticketId}
 		>
 			<h3>{props.ticket.title}</h3>
-			<h3>{props.ticket.subtitle}</h3>
+			<h4 className="sub-title">{props.ticket.subtitle}</h4>
 			<p>{props.ticket.description}</p>
 			<div className="flex space-between align-items-center ticketFooter">
 				<div className="flex align-items-center">

@@ -5,19 +5,9 @@ import Dialog from "./components/Dialog";
 import LaneDialog from "./components/LaneDialog";
 import Snackbar from "./components/Snackbar";
 import Categories from "./components/Categories";
-import {
-	Route,
-	useHistory,
-	useLocation,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { Route, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-import React, {
-	createContext,
-	useEffect,
-	useReducer,
-	useRef,
-	useState,
-} from "react";
+import React, { createContext, useEffect, useReducer, useState } from "react";
 import DeleteDialog from "./components/DeleteDialog";
 import reducer from "./store/reducer";
 import { useMutation } from "@apollo/client";
@@ -30,7 +20,6 @@ export const StateContext = React.createContext();
 export const DispatchContext = React.createContext();
 
 const App = () => {
-	//const [show, setShow] = useState(false);
 	const [laneDialog, setLaneDialog] = useState(false);
 	const [dialogTicketId, setDialogTicketId] = useState(1);
 	const [showSnackbar, setShowSnackbar] = useState(false);
@@ -47,7 +36,6 @@ const App = () => {
 		id: "",
 	});
 	const history = useHistory();
-	const location = useLocation();
 
 	const emailChangeHandler = (event) => {
 		setEmail(event.target.value);
@@ -60,7 +48,10 @@ const App = () => {
 	useEffect(() => {
 		let now = new Date();
 		let expiryTime = localStorage.getItem("token-expiry");
-		if (localStorage.getItem("token") != null && now < expiryTime) {
+		if (
+			localStorage.getItem("token") != null &&
+			Date.parse(now) < Date.parse(expiryTime)
+		) {
 			setLoggedInUser(true);
 		} else {
 			history.push("/login");
@@ -134,7 +125,10 @@ const App = () => {
 					<DispatchContext.Provider value={dispatchDialog}>
 						<StateContext.Provider value={dialogState}>
 							<LaneDialogContext.Provider value={setLaneDialog}>
-								<Header setSubmitted={setSubmitted} />
+								<Header
+									setSubmitted={setSubmitted}
+									setLoggedInUser={setLoggedInUser}
+								/>
 								<Categories />
 								<Lanes
 									dialogTicketId={dialogTicketId}

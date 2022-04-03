@@ -1,10 +1,6 @@
 import React, { useContext } from "react";
-import {
-	DELETE_TICKET_MUTATION,
-	DATA_LANES,
-	SELECTED_TICKET,
-} from "../queries/queries";
-import { useMutation, useQuery } from "@apollo/client";
+import { DELETE_TICKET_MUTATION, DATA_LANES } from "../queries/queries";
+import { useMutation } from "@apollo/client";
 import { StateContext, DispatchContext } from "../App";
 
 const DeleteDialog = (props) => {

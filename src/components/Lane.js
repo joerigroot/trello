@@ -96,7 +96,7 @@ const Lane = (props) => {
 				</div>
 			</div>
 			<div className={showDropdown ? "dropdown" : "dropdown hidden"}>
-				<button className="editButton" value={id} onClick={handleEdit}>
+				<button className="editButton" value={id} disabled onClick={handleEdit}>
 					<FontAwesomeIcon icon={faPen} />
 				</button>
 				<button
